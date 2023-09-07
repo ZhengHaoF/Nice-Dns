@@ -1,12 +1,13 @@
 # coding=utf-8
+
 import dns.resolver
 from PyQt5.QtWidgets import QApplication
 from ping3 import ping
 
 import Log
+import info
+
 Log = Log.Log()
-server = []
-domainName = []
 
 
 # 获取所有修改的Host
@@ -81,11 +82,11 @@ def getFastIp(_ip_list):
 # 获取域名对应的IP
 def getDomainIp(_domain):
     _ip_list = []
-    for ser in server:
+    for ser in info.server:
         QApplication.processEvents()
         my_resolver = dns.resolver.Resolver()
-        my_resolver.nameservers = [ser]
         try:
+            my_resolver.nameservers = [ser]
             my_answers = my_resolver.resolve(_domain, "A")
             if my_answers.rrset is not None:
                 for ip in my_answers.rrset:
@@ -98,7 +99,7 @@ def getDomainIp(_domain):
 
 
 def run():
-    for domain in domainName:
+    for domain in info.domainName:
         Log.consoleLog("开始获取" + domain + "的IP列表")
         ip_list = getDomainIp(domain)
         Log.consoleLog(str(ip_list))
