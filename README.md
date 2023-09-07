@@ -34,5 +34,10 @@
 ## 打包
 
 ``` shell
-pyinstaller -F .\main.py --hidden-import .\niceDns.py --hidden-import .\Log.py --hidden-import .\Dialog.py --hidden-import .\ui.py -p .\venv\Lib\site-packages\ --noconsole
+pyinstaller -F .\main.py  --hidden-import .\niceDns.py --hidden-import .\Log.py --hidden-import .\Dialog.py --hidden-import .\ui.py -p .\venv\Lib\site-packages\  --noconsole
 ```
+或者直接使用
+```shell
+pyinstaller .\main.spec
+```
+打包完成后，还需要吧`info.json`复制到打包后的目录中

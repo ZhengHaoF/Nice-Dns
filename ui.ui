@@ -6,33 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>801</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dns-Nice</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="yesButton">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>510</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>开始</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="logTextEdit">
     <property name="geometry">
      <rect>
@@ -67,32 +48,6 @@
     </property>
     <property name="text">
      <string>已修改的Host</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="refButton">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>510</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>刷新</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="revButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>510</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>还原Host</string>
     </property>
    </widget>
    <widget class="QListView" name="modifyList">
@@ -177,44 +132,77 @@
      <string>添加DNS</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="refDnsButton">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>510</y>
-      <width>111</width>
-      <height>28</height>
+      <x>380</x>
+      <y>480</y>
+      <width>410</width>
+      <height>30</height>
      </rect>
     </property>
-    <property name="text">
-     <string>刷新DNS缓存</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="refButton">
+       <property name="text">
+        <string>刷新</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="yesButton">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>开始</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="revDnsAndDom">
+       <property name="text">
+        <string>还原DNS和域名</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delItem">
+       <property name="text">
+        <string>删除</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="delItem">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>510</y>
-      <width>93</width>
-      <height>28</height>
+      <x>10</x>
+      <y>480</y>
+      <width>195</width>
+      <height>30</height>
      </rect>
     </property>
-    <property name="text">
-     <string>删除</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="revDnsAndDom">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>510</y>
-      <width>121</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>还原DNS和域名</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="revButton">
+       <property name="text">
+        <string>还原Host</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="refDnsButton">
+       <property name="text">
+        <string>刷新DNS缓存</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -222,7 +210,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>801</width>
      <height>26</height>
     </rect>
    </property>
