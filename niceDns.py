@@ -83,7 +83,7 @@ def getFastIp(_ip_list):
 # 获取域名对应的IP
 def getDomainIp(_domain):
     _ip_list = []
-    for ser in info.server:
+    for ser in info.dnsListRow:
         QApplication.processEvents()
         my_resolver = dns.resolver.Resolver()
         try:
@@ -100,7 +100,7 @@ def getDomainIp(_domain):
 
 
 def run():
-    for domain in info.domainName:
+    for domain in info.domainListRow:
         Log.consoleLog("开始获取" + domain + "的IP列表")
         ip_list = getDomainIp(domain)
         Log.consoleLog(str(ip_list))

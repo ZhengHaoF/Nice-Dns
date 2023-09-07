@@ -29,12 +29,12 @@ class MyWindow:
         # 实例化列表模型，添加数据
         self.domainList = QStringListModel()
         # 设置模型列表视图，加载数据列表
-        self.domainList.setStringList(info.domainName)
+        self.domainList.setStringList(info.domainListRow)
 
         # 实例化列表模型，添加数据
         self.dnsList = QStringListModel()
         # 设置模型列表视图，加载数据列表
-        self.dnsList.setStringList(info.server)
+        self.dnsList.setStringList(info.dnsListRow)
 
         app = QtWidgets.QApplication(sys.argv)
         main_window = QtWidgets.QMainWindow()
@@ -44,7 +44,8 @@ class MyWindow:
         self.Ui.revButton.clicked.connect(self.rev)
         self.Ui.addDns.clicked.connect(self.addServer)
         self.Ui.refDnsButton.clicked.connect(self.refDnsButton)
-        self.Ui.delItem.clicked.connect(self.delServer)
+        self.Ui.revDnsAndDom.clicked.connect(self.revDnsAndDom)
+        self.Ui.delItem.clicked.connect(self.delItme)
         # 设置列表视图的模型
         self.Ui.modifyList.setModel(self.modifyList)
         self.Ui.domainList.setModel(self.domainList)
@@ -73,16 +74,20 @@ class MyWindow:
     def ref(self):
         self.modifyList.setStringList(niceDns.getModifyHost())
         self.Ui.logTextEdit.clear()
+        self.domainList.setStringList(info.domainListRow)
+        self.Ui.domainList.setModel(self.domainList)
+        self.dnsList.setStringList(info.dnsListRow)
+        self.Ui.dnsList.setModel(self.dnsList)
 
     # 添加域名
     def addDomain(self):
         Dlg = Dialog.Dlg()
         dom = Dlg.input("添加域名", "输入域名")
         if dom != "":
-            info.domainName.append(dom)
-            self.domainList.setStringList(info.domainName)
+            info.domainListRow.append(dom)
+            self.domainList.setStringList(info.domainListRow)
             self.Ui.domainList.setModel(self.domainList)
-            info.info['domainName'] = info.domainName
+            info.info['domainName'] = info.domainListRow
             with open("info.json", "w") as f:
                 json.dump(info.info, f)
 
@@ -91,30 +96,66 @@ class MyWindow:
         Dlg = Dialog.Dlg()
         dom = Dlg.input("添加DNS", "输入DNS")
         if dom != "":
-            info.server.append(dom)
-            self.dnsList.setStringList(info.server)
+            info.dnsListRow.append(dom)
+            self.dnsList.setStringList(info.dnsListRow)
             self.Ui.dnsList.setModel(self.dnsList)
-            info.info['server'] = info.server
+            info.info['server'] = info.dnsListRow
             with open("info.json", "w") as f:
                 json.dump(info.info, f)
 
     # 删除DNS服务
-    def delServer(self):
-        pass
-        # self.dnsList.removeRow(0)
-        # print(self.dnsList.currentRow())
-        # Dlg = Dialog.Dlg()
-        # dom = Dlg.input("添加DNS", "输入DNS")
-        # if dom != "":
-        #     info.server.append(dom)
-        #     self.dnsList.setStringList(info.server)
-        #     self.Ui.dnsList.setModel(self.dnsList)
-        #     info.info['server'] = info.server
-        #     with open("info.json", "w") as f:
-        #         json.dump(info.info, f)
+    def delItme(self):
+        if self.Ui.dnsList.currentIndex().row() != -1:
+            del info.dnsListRow[self.Ui.dnsList.currentIndex().row()]
+            self.dnsList.setStringList(info.dnsListRow)
+            self.Ui.dnsList.setModel(self.dnsList)
+            with open("info.json", "w") as f:
+                json.dump(info.info, f)
+
+        if self.Ui.domainList.currentIndex().row() != -1:
+            del info.domainListRow[self.Ui.domainList.currentIndex().row()]
+            self.domainList.setStringList(info.domainListRow)
+            self.Ui.domainList.setModel(self.domainList)
+            with open("info.json", "w") as f:
+                json.dump(info.info, f)
 
     # 刷新Dns缓存
     def refDnsButton(self):
         if os.system("ipconfig /flushdns") == 0:
-            QMessageBox(QMessageBox.Question, '完成', '刷新Dns缓存成功').exec_()
+            QMessageBox(QMessageBox.Question, '完成', '刷新Dns缓存成功').exec_()  # 刷新Dns缓存
 
+    # 还原DNS和域名
+    def revDnsAndDom(self):
+        row = {
+            "dns": [
+                "8.8.8.8",
+                "114.114.114.114",
+                "1.1.1.1",
+                "119.29.29.29",
+                "182.254.116.116",
+                "223.5.5.5",
+                "223.6.6.6",
+                "180.76.76.76",
+                "9.9.9.9",
+                "149.112.112.112",
+                "208.67.222.222",
+                "101.101.101.101"
+            ],
+            "domain": [
+                "github.com",
+                "api.github.com",
+                "github.githubassets.com",
+                "favicons.githubusercontent.com",
+                "raw.githubusercontent.com"
+            ]
+        }
+        info.info = row
+        info.dnsListRow = info.info['dns']
+        info.domainListRow = info.info['domain']
+        self.dnsList.setStringList(info.dnsListRow)
+        self.domainList.setStringList(info.domainListRow)
+        self.Ui.dnsList.setModel(self.dnsList)
+        self.Ui.domainList.setModel(self.domainList)
+
+        with open("info.json", "w") as f:
+            json.dump(info.info, f)

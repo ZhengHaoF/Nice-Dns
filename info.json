@@ -1,5 +1,5 @@
 {
-  "server": [
+  "dns": [
     "8.8.8.8",
     "114.114.114.114",
     "1.1.1.1",
@@ -13,7 +13,7 @@
     "208.67.222.222",
     "101.101.101.101"
   ],
-  "domainName": [
+  "domain": [
     "github.com",
     "api.github.com",
     "github.githubassets.com",
