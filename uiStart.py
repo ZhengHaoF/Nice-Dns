@@ -1,6 +1,7 @@
 # include <QApplication>
 # include <QWidget>
 import json
+import os
 import sys
 
 from PyQt5 import QtWidgets
@@ -42,6 +43,8 @@ class MyWindow:
         self.Ui.yesButton.clicked.connect(self.run)
         self.Ui.revButton.clicked.connect(self.rev)
         self.Ui.addDns.clicked.connect(self.addServer)
+        self.Ui.refDnsButton.clicked.connect(self.refDnsButton)
+        self.Ui.delItem.clicked.connect(self.delServer)
         # 设置列表视图的模型
         self.Ui.modifyList.setModel(self.modifyList)
         self.Ui.domainList.setModel(self.domainList)
@@ -94,3 +97,24 @@ class MyWindow:
             info.info['server'] = info.server
             with open("info.json", "w") as f:
                 json.dump(info.info, f)
+
+    # 删除DNS服务
+    def delServer(self):
+        pass
+        # self.dnsList.removeRow(0)
+        # print(self.dnsList.currentRow())
+        # Dlg = Dialog.Dlg()
+        # dom = Dlg.input("添加DNS", "输入DNS")
+        # if dom != "":
+        #     info.server.append(dom)
+        #     self.dnsList.setStringList(info.server)
+        #     self.Ui.dnsList.setModel(self.dnsList)
+        #     info.info['server'] = info.server
+        #     with open("info.json", "w") as f:
+        #         json.dump(info.info, f)
+
+    # 刷新Dns缓存
+    def refDnsButton(self):
+        if os.system("ipconfig /flushdns") == 0:
+            QMessageBox(QMessageBox.Question, '完成', '刷新Dns缓存成功').exec_()
+

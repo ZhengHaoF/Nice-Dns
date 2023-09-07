@@ -1,4 +1,5 @@
 # coding=utf-8
+import os
 
 import dns.resolver
 from PyQt5.QtWidgets import QApplication
@@ -108,4 +109,7 @@ def run():
             Log.consoleLog(domain + " 最快IP：" + min_ip)
             removeHost(domain)
             addHost(min_ip, domain)
+
+    if os.system("ipconfig /flushdns") == 0:
+        Log.consoleLog("筛选Dns缓存成功")
     Log.consoleLog("IP筛选完成")
