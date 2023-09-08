@@ -31,13 +31,28 @@
 "101.101.101.101",  # Quad 101
 ```
 
+## 安装依赖
+
+```shell
+pip install -r requirements.txt
+```
+
+## 运行
+
+```shell
+python main.py
+```
+
 ## 打包
 
 ``` shell
 pyinstaller -F .\main.py  --hidden-import .\niceDns.py --hidden-import .\Log.py --hidden-import .\Dialog.py --hidden-import .\ui.py -p .\venv\Lib\site-packages\  --noconsole
 ```
+
 或者直接使用
+
 ```shell
 pyinstaller .\main.spec
 ```
+
 打包完成后，还需要吧`info.json`复制到打包后的目录中
